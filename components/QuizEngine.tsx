@@ -41,7 +41,16 @@ export default function QuizEngine({
   const [timeLeft, setTimeLeft] = useState(timeLimit);
 
   const startQuiz = () => {
-    const randomQuizzes = shuffleArray(quizzes).slice(0, QUIZ_COUNT);
+    const randomQuizzes = shuffleArray(quizzes)
+        .slice(0, QUIZ_COUNT)
+        .map((quiz) => {
+        const shuffledChoices = shuffleArray(quiz.choices);
+
+        return {
+            ...quiz,
+            choices: shuffledChoices,
+        };
+        });
 
     setShuffledQuizzes(randomQuizzes);
     setCurrentIndex(0);
