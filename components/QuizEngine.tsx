@@ -85,6 +85,12 @@ export default function QuizEngine({
     return null;
   }
 
+  const cleanQuestion = currentQuiz.question
+  .replace(/in context/gi, "")
+  .replace(/synonym check/gi, "")
+  .replace(/-/g, "")
+  .trim();
+
   const isCorrect = selectedAnswer === currentQuiz.answer;
   const progress = ((currentIndex + 1) / shuffledQuizzes.length) * 100;
 
@@ -198,12 +204,16 @@ export default function QuizEngine({
           </div>
 
           <div className="mb-4 rounded-2xl bg-gray-900 p-4 text-white shadow-lg sm:mb-6 sm:rounded-3xl sm:p-6">
-            <p className="mb-1 text-xs font-bold text-indigo-200 sm:mb-2 sm:text-sm">
+            <p className="text-xs font-bold text-indigo-200 sm:text-sm">
               문제 {currentIndex + 1}
             </p>
 
-            <h2 className="text-lg font-black leading-snug sm:text-2xl">
-              {currentQuiz.question}
+            <p className="mt-5 text-sm font-bold text-gray-300 sm:text-base">
+              출제 단어
+            </p>
+
+            <h2 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">
+              {cleanQuestion}
             </h2>
           </div>
 

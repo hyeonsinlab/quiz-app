@@ -7,7 +7,7 @@ export default function EnglishQuizPage() {
       title="영어 단어 퀴즈"
       description="2023~2025 기출 영단어를 맞혀봐요."
       quizzes={civilServiceVocab2023To2025}
-      timeLimit={7}
+      timeLimit={10}
     />
   );
 }

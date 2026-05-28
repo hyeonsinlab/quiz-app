@@ -7,7 +7,7 @@ export default function ProverbQuizPage() {
       title="속담 퀴즈"
       description="빈칸에 들어갈 속담을 맞혀보세요."
       quizzes={proverbQuizData}
-      timeLimit={7}
+      timeLimit={10}
     />
   );
 }
