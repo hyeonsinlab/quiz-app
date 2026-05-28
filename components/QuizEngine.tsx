@@ -161,10 +161,11 @@ export default function QuizEngine({
             </div>
 
             <Link
-              href="/"
-              className="rounded-full px-3 py-2 text-xs font-bold text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 sm:text-sm"
+            href="/"
+              className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-3 text-sm font-black text-white shadow-lg transition active:scale-95 sm:text-base"
             >
-              홈
+            <span className="text-lg">🏠</span>
+              홈으로
             </Link>
           </div>
 

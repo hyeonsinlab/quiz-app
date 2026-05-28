@@ -33,46 +33,54 @@ const quizMenus = [
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-6">
-      <section className="mx-auto max-w-5xl py-12">
-        <div className="mb-8 rounded-[2rem] bg-white/95 p-8 shadow-2xl">
+    <main className="h-dvh overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-5">
+      <section className="mx-auto flex h-full max-w-5xl flex-col gap-4">
+        {/* HERO */}
+        <div className="rounded-[2rem] bg-white/95 p-6 shadow-2xl">
           <span className="inline-block rounded-full bg-indigo-100 px-4 py-1 text-sm font-bold text-indigo-700">
             QUIZ PLAYGROUND
           </span>
 
-          <h1 className="mt-4 text-5xl font-black text-gray-900">
-            이슬이네 QUIZ 놀이터
+          <h1 className="mt-4 break-keep text-4xl font-black leading-tight text-gray-900 sm:text-5xl">
+            이슬이네
+            <br />
+            QUIZ 놀이터
           </h1>
 
-          <p className="mt-4 text-lg font-medium text-gray-500">
-            원하는 퀴즈를 선택해서 문제를 풀어보세요.
+          <p className="mt-3 break-keep text-base leading-relaxed text-gray-500">
+            원하는 퀴즈를 골라 도전해보세요.
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        {/* QUIZ GRID */}
+        <div className="grid flex-1 grid-cols-2 gap-4">
           {quizMenus.map((quiz) => (
             <Link
               key={quiz.href}
               href={quiz.href}
-              className="group rounded-[2rem] bg-white/95 p-7 shadow-xl transition duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl"
+              className="group flex flex-col justify-between rounded-[2rem] bg-white/95 p-5 shadow-xl transition active:scale-[0.97] sm:hover:-translate-y-2 sm:hover:scale-[1.02] sm:hover:shadow-2xl"
             >
-              <div className="flex items-center justify-between">
-                <div className="text-6xl transition duration-300 group-hover:scale-125">
+              <div className="flex items-start justify-between gap-2">
+                <div className="text-4xl transition duration-300 sm:group-hover:scale-125">
                   {quiz.icon}
                 </div>
 
-                <span className="rounded-full bg-gray-100 px-4 py-1 text-sm font-bold text-gray-600 transition group-hover:bg-indigo-100 group-hover:text-indigo-700">
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-600 transition sm:group-hover:bg-indigo-100 sm:group-hover:text-indigo-700">
                   {quiz.badge}
                 </span>
               </div>
 
-              <h2 className="mt-8 text-3xl font-black text-gray-900 transition group-hover:text-indigo-700">
-                {quiz.title}
-              </h2>
+              <div className="mt-6">
+                <h2 className="break-keep text-2xl font-black leading-tight text-gray-900 transition sm:group-hover:text-indigo-700">
+                  {quiz.title}
+                </h2>
 
-              <p className="mt-3 text-gray-500">{quiz.description}</p>
+                <p className="mt-2 break-keep text-sm leading-snug text-gray-500">
+                  {quiz.description}
+                </p>
+              </div>
 
-              <div className="mt-6 font-bold text-indigo-600 opacity-0 transition group-hover:opacity-100">
+              <div className="mt-4 hidden font-bold text-indigo-600 opacity-0 transition sm:block sm:group-hover:opacity-100">
                 시작하기 →
               </div>
             </Link>
