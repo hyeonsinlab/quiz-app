@@ -1,22 +1,36 @@
 import { FormEvent, useState } from "react";
 import axios from "axios";
 
-export default function Signup() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [nickname, setNickname] = useState<string>("");
+interface LoginResponse {
+  message: string;
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    nickname: string;
+  };
+}
 
-  const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:4000/api/auth/signup", {
-        email,
-        password,
-        nickname,
-      });
+      const res = await axios.post<LoginResponse>(
+        "http://localhost:4000/api/auth/signup",
+        {
+          email,
+          password,
+        }
+      );
 
-      alert(res.data.message);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      alert("회원가입 성공! 로그인 해주세요.");
     } catch (err) {
       if (axios.isAxiosError(err)) {
         alert(err.response?.data?.message || "회원가입 실패");
@@ -28,17 +42,50 @@ export default function Signup() {
 
   return (
     <div>
-      <h1>회원가입</h1>
+      <h2 style={{ marginBottom: "16px" }}>회원가입</h2>
 
-      <form onSubmit={handleSignup}>
-        <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <br />
-        <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <br />
-        <input type="text" placeholder="닉네임" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-        <br />
-        <button type="submit">회원가입</button>
+      <form
+        onSubmit={handleLogin}
+        style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+      >
+        <input
+          type="email"
+          placeholder="이메일"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputStyle}
+        />
+
+        <input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={inputStyle}
+        />
+
+        <button type="submit" style={buttonStyle}>
+          회원가입
+        </button>
       </form>
     </div>
   );
 }
+
+const inputStyle = {
+  padding: "14px",
+  borderRadius: "12px",
+  border: "1px solid #ddd",
+  fontSize: "16px",
+};
+
+const buttonStyle = {
+  padding: "14px",
+  borderRadius: "12px",
+  border: "none",
+  background: "#6366f1",
+  color: "white",
+  fontSize: "16px",
+  fontWeight: "bold" as const,
+  cursor: "pointer",
+};
