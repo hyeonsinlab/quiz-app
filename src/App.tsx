@@ -1,10 +1,18 @@
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import QuizEngine from "./components/QuizEngine";
-import { capitalQuiz } from "./data/capitalQuiz";
+import { capitalQuizData } from "../data/capitalQuiz";
 
 function App() {
   const token = localStorage.getItem("token");
+
+  const formattedQuizData = capitalQuizData.map((quiz, index) => ({
+    id: index + 1,
+    question: quiz.question,
+    answer: quiz.answer,
+    choices: [...quiz.options],
+    imageUrl: quiz.imageUrl,
+  }));
 
   return (
     <div>
@@ -13,7 +21,7 @@ function App() {
           <QuizEngine
             title="국기 수도 퀴즈"
             description="국가의 수도를 맞춰보세요!"
-            quizzes={capitalQuiz}
+            quizzes={formattedQuizData}
             timeLimit={15}
           />
 
